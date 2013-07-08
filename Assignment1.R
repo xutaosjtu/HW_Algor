@@ -1,13 +1,13 @@
-swap <-function(x){
-  if(leng(x)==1){
-    return(x)
-  }
-  if(x[1]>x[2]){
-    min = x[2];x[2]=x[1]; x[1] = min;
-    return(x)
-  }
-  else return(x)
-}
+#swap <-function(x){
+#  if(leng(x)==1){
+#    return(x)
+#  }
+#  if(x[1]>x[2]){
+#    min = x[2];x[2]=x[1]; x[1] = min;
+#    return(x)
+#  }
+#  else return(x)
+#}
 
 combine <- function(x,y){
   count = 0
