@@ -8,3 +8,24 @@
 # 
 # IMPLEMENTATION NOTES: This graph is small enough that the straightforward O(mn) time implementation of Dijkstra's algorithm should work fine. OPTIONAL: For those of you seeking an additional challenge, try implementing the heap-based version. Note this requires a heap that supports deletions, and you'll probably need to maintain some kind of mapping between vertices and their positions in the heap.
 
+data = scan(file="dijkstraData.txt", sep="\n" ,what=character())
+data = strsplit(data, split = "\t")
+edge = lapply(data, function(x) sapply(x, function(y) unlist(strsplit(y, split=","))[1]))
+edge = lapply(edge, function(x) as.numeric(x)[2:length(x)])
+
+weight = lapply(data, function(x) sapply(x, function(y) unlist(strsplit(y, split=","))[2]))
+weight = lapply(weight, function(x) as.numeric(x)[2:length(x)])
+
+net=NULL
+for(i in 1:length(edge)){
+  tmp = cbind(rep(i,length(edge[[i]])),edge[[i]])
+  net = rbind(net,tmp)
+}
+net = cbind(net, unlist(weight))
+
+write.csv(net, file="dijkstraData.csv", row.names=F)
+
+g = read.graph(file="dijkstraData.csv",format="ncol", directed=F)
+
+rst = shortest.paths(g, v= V(g)[1], to = V(g),mode="all", algorithm="dijkstra")
+rst[order(as.numeric(colnames(rst)))]
